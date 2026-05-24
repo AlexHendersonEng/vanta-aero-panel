@@ -106,25 +106,21 @@ class SourcePanelSystem:
         float
             Value of the integrated influence coefficient.
         """
-        return (1 / (2 * np.pi)) * (
-            0.5 * a3 * np.log((s**2 + 2 * a1 * s + a2) / a2)
-            + (((a4 - a1 * a3) / a5) * (np.atan2(s + a1, a5) - np.atan2(a1, a5)))
-        )
+        log_term = 0.5 * a3 * np.log((s**2 + 2 * a1 * s + a2) / a2)
 
-    def _construct_matrices(self):
+        if abs(a5) < 1e-10:
+            atan_term = 0.0
+        else:
+            atan_term = ((a4 - a1 * a3) / a5) * (
+                np.atan2(s + a1, a5) - np.atan2(a1, a5)
+            )
+
+        return (1 / (2 * np.pi)) * (log_term + atan_term)
+
+    def solve(self):
         """
-        Builds the normal and tangential influence coefficient matrices and RHS vectors.
-
-        Returns
-        -------
-        an: 2D Numpy array of floats
-            Normal influence coefficient matrix of shape (n_panels, n_panels).
-        bn: 1D Numpy array of floats
-            Normal freestream RHS vector of length n_panels.
-        at: 2D Numpy array of floats
-            Tangential influence coefficient matrix of shape (n_panels, n_panels).
-        bt: 1D Numpy array of floats
-            Tangential freestream RHS vector of length n_panels.
+        Solves for panel source strengths and computes surface velocities and
+        pressure coefficients.
         """
         # Preallocate influence coefficient and RHS matrices
         an, at = (
@@ -142,7 +138,7 @@ class SourcePanelSystem:
             y_ic = self.panels[i].yc
 
             for j in range(self.n_panels):
-                # Diagonal terms follow from the singularity conditions
+                # Diagonal terms
                 if i == j:
                     an[i, j] = 0.5
                     at[i, j] = 0.0
@@ -177,15 +173,7 @@ class SourcePanelSystem:
             bn[i] = -self.uniform_flow.u_inf * np.cos(beta_i)
             bt[i] = -self.uniform_flow.u_inf * np.sin(beta_i)
 
-        return an, bn, at, bt
-
-    def solve(self):
-        """
-        Solves for panel source strengths and computes surface velocities and
-        pressure coefficients.
-        """
-        # Assemble the normal system of equations and solve for panel strengths
-        an, bn, at, bt = self._construct_matrices()
+        # Solve for panel strengths
         self.strengths = solve(an, bn)
 
         # Evaluate surface normal and tangential velocities and pressure coefficient
