@@ -193,7 +193,7 @@ class SourcePanelSystem:
         self.vt = at @ self.strengths - bt
         self.cp = 1.0 - (self.vn**2 + self.vt**2) / self.uniform_flow.u_inf**2
 
-    def velocity(self, x, y):
+    def velocity(self, x: np.ndarray, y: np.ndarray):
         """
         Computes the velocity field at arbitrary points in the flow domain.
 
