@@ -1,0 +1,81 @@
+\section{Uniform Flow}
+\label{sec:uniform-flow}
+
+Consider a uniform flow of speed $U$ inclined at an angle $\alpha$
+to the positive $x$-axis.
+The velocity components are
+
+\[
+u = U\cos\alpha,
+\qquad
+v = U\sin\alpha
+\]
+
+Since both velocity components are constant, the flow is uniform
+throughout the domain.
+
+\subsection{Velocity Potential}
+\label{subsec:uniform-flow-velocity-potential}
+
+Using
+
+\[
+u = \frac{\partial \phi}{\partial x},
+\qquad
+v = \frac{\partial \phi}{\partial y}
+\]
+
+we obtain
+
+\[
+\frac{\partial \phi}{\partial x}
+=
+U\cos\alpha,
+\qquad
+\frac{\partial \phi}{\partial y}
+=
+U\sin\alpha
+\]
+
+Integrating gives
+
+\[
+\boxed{
+\phi
+=
+U(x\cos\alpha+y\sin\alpha)
+}
+\]
+
+\subsection{Stream Function}
+\label{subsec:uniform-flow-stream-function}
+
+The stream function satisfies
+
+\[
+u=\frac{\partial\psi}{\partial y},
+\qquad
+v=-\frac{\partial\psi}{\partial x}
+\]
+
+Substituting the velocity components,
+
+\[
+\frac{\partial\psi}{\partial y}
+=
+U\cos\alpha,
+\qquad
+\frac{\partial\psi}{\partial x}
+=
+-\,U\sin\alpha
+\]
+
+Integration yields
+
+\[
+\boxed{
+\psi
+=
+U(y\cos\alpha-x\sin\alpha)
+}
+\]
