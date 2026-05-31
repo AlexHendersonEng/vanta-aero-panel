@@ -1,0 +1,49 @@
+\section{Governing Equations}
+\label{sec:governing-equations}
+
+\subsection{Continuity Equation}
+\label{subsec:continuity-equation}
+
+Consider a two-dimensional velocity field
+\[
+\mathbf{V} = (u(x, y),\, v(x, y))
+\]
+
+For incompressible flow, the continuity equation is given by
+\[
+\nabla \cdot \mathbf{V} = 0.
+\]
+
+In Cartesian coordinates, this becomes
+\[
+\frac{\partial u}{\partial x} + \frac{\partial v}{\partial y} = 0
+\]
+
+
+\subsection{Irrotational Flow}
+\label{subsec:irrotational-flow}
+
+
+The vorticity field is defined as
+\[
+\boldsymbol{\omega} = \nabla \times \mathbf{V}
+\]
+
+For a two-dimensional flow, the only non-zero component is the out of plane component
+\[
+\omega_z = \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\]
+
+An irrotational flow is characterised by
+\[
+\boldsymbol{\omega} = \mathbf{0}
+\]
+and hence
+\[
+\omega_z = 0
+\]
+
+This implies the compatibility condition
+\[
+\frac{\partial v}{\partial x} = \frac{\partial u}{\partial y}
+\]
